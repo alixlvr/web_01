@@ -7,7 +7,7 @@ import template from "../views/score.html";
 export class ScoreComponent extends Component{
     constructor(){
         super(template)
-        var params = parseUrl();
+        let params = parseUrl();
 
         this.template = template;
         this.name = params.name;

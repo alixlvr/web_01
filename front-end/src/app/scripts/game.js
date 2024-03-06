@@ -51,17 +51,22 @@ export class GameComponent extends Component{
 
             // TODO #functional-programming: use Array.forEach() instead.
             // TODO #let-const: replace var with let.
-            for (var i in this._cards) {
-              var card = this._cards[i];
+            for (let i in this._cards) {
+              let card = this._cards[i];
 
-              // TODO #let-const: extract function _appendCard (ie: copy its body here and remove the function)
-              this._appendCard(card);
+              this._boardElement.appendChild(card.getElement());
+                card.getElement().addEventListener(
+                    "click",
+                    function () {
+                        this._flipCard(card);
+                    }.bind(this)
+                );
             }
 
             this.start();
           }.bind(this)
         );
-    };
+    }
 
   /* method GameComponent._appendCard */
     _appendCard(card){
