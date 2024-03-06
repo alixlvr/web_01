@@ -1,5 +1,6 @@
 // TODO #import-html: use ES default imports to import game.html as template
 import { parseUrl } from "./utils";
+import template from "../views/game.html";
 
 var CARD_TEMPLATE = ""
   .concat('<main class="card-cmp">')
@@ -24,7 +25,7 @@ var CARD_TEMPLATE = ""
     // gather parameters from URL
     var params = parseUrl();
 
-    // TODO #import-html: assign template to this.template
+    this.template = template;
     // save player name & game ize
     this._name = params.name;
     this._size = parseInt(params.size) || 9;
