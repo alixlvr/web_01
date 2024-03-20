@@ -19,8 +19,8 @@ var CARD_TEMPLATE = ""
 
 
   /* class GameComponent constructor */
-export class GameComponent extends Component{
-    constructor(){
+export class GameComponent extends Component {
+    constructor() {
 
         super(template)
         // gather parameters from URL
@@ -34,30 +34,27 @@ export class GameComponent extends Component{
     }
 
     /* method GameComponent.init */
-    init() {
-    // fetch the cards configuration from the server
-        this.fetchConfig((config) => {
-            this._config = config;
-            this._boardElement = document.querySelector(".cards");
+    async init() {
+        this._config = await this.fetchConfig();
+        this._boardElement = document.querySelector(".cards");
 
-            // create cards out of the config
-            this._cards = [];
-            this._cards = this._config.ids.map(id => new CardComponent(id));
+        // create cards out of the config
+        this._cards = [];
+        this._cards = this._config.ids.map(id => new CardComponent(id));
 
-            this._cards.forEach(card => {
-              //let card = this._cards[i];
-              this._boardElement.appendChild(card.getElement());
-              card.getElement().addEventListener(
-                  "click",
-                  () => {
-                      this._flipCard(card);
-                  }
-              );
-            });
-            this.start();
-          }
-        );
+        this._cards.forEach(card => {
+            //let card = this._cards[i];
+            this._boardElement.appendChild(card.getElement());
+            card.getElement().addEventListener(
+                "click",
+                () => {
+                    this._flipCard(card);
+                }
+            );
+        });
+        this.start();
     }
+
 
   /* method GameComponent._appendCard */
     _appendCard(card){
@@ -84,37 +81,11 @@ export class GameComponent extends Component{
             );
     };
 
-
-
-  /* method GameComponent.fetchConfig */
-    fetchConfig(cb) {
-        var xhr =
-          typeof XMLHttpRequest != "undefined"
-            ? new XMLHttpRequest()
-            : new ActiveXObject("Microsoft.XMLHTTP");
-
-        xhr.open("get", `${environment.api.host}/board?size=${this._size}`, true);
-
-        xhr.onreadystatechange = () => {
-          var status;
-          var data;
-          // https://xhr.spec.whatwg.org/#dom-xmlhttprequest-readystate
-          if (xhr.readyState == 4) {
-            // `DONE`
-            status = xhr.status;
-            if (status == 200) {
-              data = JSON.parse(xhr.responseText);
-              cb(data);
-            } else {
-              throw new Error(status);
-            }
-          }
-        };
-        xhr.send();
-    };
-
-
-
+    async fetchConfig() {
+        return fetch(`${environment.api.host}/board?size=${this._size}`)
+            .then((r) => r.json()
+        );
+    }
 
   /* method GameComponent.goToScore */
 goToScore() {
