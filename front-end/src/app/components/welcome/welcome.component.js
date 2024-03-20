@@ -1,16 +1,18 @@
-import template from "../views/welcome.html";
-import {Component} from "./component";
+import { Component } from "../../scripts/component";
 
-/* class WelcomeComponent constructor  */
+import template from "../welcome/welcome.component.html";
+import "./welcome.component.css";
+
+/* class GameComponent constructor  */
 export class WelcomeComponent extends Component{
     constructor(){
         super(template)
     }
 
 // put component in global scope, to be runnable right from the HTML.
-    /*window.WelcomeComponent = WelcomeComponent;*/
+    /*window.GameComponent = GameComponent;*/
 
-    /* method WelcomeComponent.init */
+    /* method GameComponent.init */
     init() {
         let form = document.querySelector("form.form-signin");
 
