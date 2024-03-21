@@ -1,8 +1,8 @@
 // TODO #export-functions: remove the IIFE
 (function () {
-  // TODO #export-functions: export function ScoreComponent
+  // TODO #export-functions: export function GameComponent
   // TODO #class: use the ES6 class keyword
-  /* class ScoreComponent constructor */
+  /* class GameComponent constructor */
   function ScoreComponent() {
     var params = parseUrl();
     this.name = params.name;
@@ -14,8 +14,8 @@
   // put component in global scope, to be runnable right from the HTML.
   window.ScoreComponent = ScoreComponent;
 
-  // TODO #class: turn function into a method of ScoreComponent
-  /* method ScoreComponent.init */
+  // TODO #class: turn function into a method of GameComponent
+  /* method GameComponent.init */
   ScoreComponent.prototype.init = function init() {
     document.getElementById("name").innerText = this.name;
     document.getElementById("size").innerText = this.size;
